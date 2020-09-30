@@ -16,11 +16,11 @@ const User = require('../../models/User');
 router.post(
   '/',
   [
-    check('name', 'Name is required').not().isEmpty(),
-    check('email', 'Please include a valide email').isEmail(),
+    check('name', 'Veuillez introduire le nom').not().isEmpty(),
+    check('email', 'Veuillez introduire un email valide').isEmail(),
     check(
       'password',
-      'Please enter a password with 6 or more characters'
+      'Le mots de pass doit avoir plus de 6 caracteres'
     ).isLength({ min: 6 }),
   ],
   async (req, res) => {
@@ -35,7 +35,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'User Already Exists' }] });
+          .json({ errors: [{ msg: 'Utilisateur deja existe' }] });
       }
       //Get users gravatar
       const avatar = gravatar.url(email, {
@@ -96,7 +96,7 @@ router.delete('/:user_id', auth, async (req, res) => {
   try {
     //remove type
     await User.findOneAndRemove({ _id: req.params.user_id });
-    res.json({ msg: 'Element Deleted' });
+    res.json({ msg: "l'utilisateur a ete supprime" });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -107,7 +107,7 @@ router.delete('/', auth, async (req, res) => {
     //remove type
     await User.deleteMany({});
 
-    res.json({ msg: 'all Elements are Deleted' });
+    res.json({ msg: 'Tous les utilisateurs sont supprimes' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
