@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://fateh_18:fateh_18@gestionmedicale.skty9.mongodb.net/GMedicaleBD?retryWrites=true&w=majority",
+  "jwtSecret": "MySecretToken"
+}

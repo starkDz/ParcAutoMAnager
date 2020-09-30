@@ -1,0 +1,51 @@
+{
+  "name": "gestionparcautomobile",
+  "version": "1.0.0",
+  "description": "une application pour la gestion des parcs automobile",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heruko-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "keywords": [
+    "allocation voiture",
+    "management",
+    "react",
+    "redux",
+    "mongoDb"
+  ],
+  "author": "3rd Millennium Dev",
+  "license": "MIT",
+  "dependencies": {
+    "@devexpress/dx-chart-core": "^2.7.1",
+    "@devexpress/dx-react-chart": "^2.7.1",
+    "@devexpress/dx-react-chart-material-ui": "^2.7.1",
+    "@devexpress/dx-react-core": "^2.7.1",
+    "@react-pdf/renderer": "^1.6.11",
+    "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.1",
+    "cors": "^2.8.5",
+    "easy-peasy": "^3.3.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "gravatar": "^1.8.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.28.0",
+    "mongoose": "^5.10.5",
+    "react-moment": "^0.9.7",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
+  }
+}
