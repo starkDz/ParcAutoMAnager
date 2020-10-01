@@ -9,5 +9,5 @@ export default {
   },
 
   name: 'Vehicule',
-  icon: <DirectionsCarIcon fontSize='   ' />,
+  icon: <DirectionsCarIcon fontSize='large' />,
 };

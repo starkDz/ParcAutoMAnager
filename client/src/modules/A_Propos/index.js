@@ -9,5 +9,5 @@ export default {
     component: A_Propos,
   },
   name: 'A Propos',
-  icon: <ContactSupportIcon fontSize='large' color='secondary' />,
+  icon: <ContactSupportIcon fontSize='large' />,
 };

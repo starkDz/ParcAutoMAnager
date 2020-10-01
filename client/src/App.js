@@ -155,7 +155,11 @@ const App = (props) => {
   const [anchorLogin, setanchorLogin] = React.useState(null);
   const [openMenuLanguage, setopenMenuLanguage] = React.useState(false);
   const [openMenuLogin, setopenMenuLogin] = React.useState(false);
-
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  function handleListItemClick(event, thisTab, index) {
+    setSelectedIndex(index);
+    setCurrentTab(thisTab);
+  }
   function handleMenuLogin(event) {
     setanchorLogin(event.currentTarget);
     setopenMenuLogin(true);
@@ -354,7 +358,8 @@ const App = (props) => {
           <Divider />
           <List>
             {modules.map((
-              module // with a name, and routes
+              module,
+              index // with a name, and routes
             ) => (
               <Tooltip title={module.name} key={module.name} placement='right'>
                 <ListItem
@@ -362,7 +367,10 @@ const App = (props) => {
                   key={module.name}
                   component={Link}
                   to={module.routeProps.path}
-                  onClick={() => setCurrentTab(module.name)}
+                  selected={index === selectedIndex}
+                  onClick={(event) =>
+                    handleListItemClick(event, module.name, index)
+                  }
                 >
                   <ListItemIcon>{module.icon}</ListItemIcon>
                   <ListItemText primary={module.name} />

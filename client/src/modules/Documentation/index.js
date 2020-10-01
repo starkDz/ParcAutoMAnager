@@ -1,6 +1,5 @@
 import React from 'react';
-import DescriptionIcon from '@material-ui/icons/Description';
-
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 const Documentation = () => <div></div>;
 
 export default {
@@ -10,5 +9,5 @@ export default {
   },
 
   name: 'Documentation',
-  icon: <DescriptionIcon fontSize='large' />,
+  icon: <FindInPageIcon fontSize='large' />,
 };

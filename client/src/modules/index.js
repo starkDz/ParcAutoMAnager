@@ -6,13 +6,23 @@ import Dashboard from './Dashboard';
 import Carburant from './Carburant';
 import Documentation from './Documentation';
 import Statistique from './Statistique';
+import Configuration from './Configuration';
+import History from './History';
+import Document from './Document';
+import Messagerie from './Messagerie';
+import Reparation from './Reparation';
 export default [
   Dashboard,
   Mission,
   Personne,
   Vehicule,
   Carburant,
+  Document,
+  Messagerie,
+  Reparation,
   Statistique,
-  A_Propos,
+  Configuration,
+  History,
   Documentation,
+  A_Propos,
 ];
