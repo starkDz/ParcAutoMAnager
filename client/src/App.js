@@ -368,8 +368,18 @@ const App = (props) => {
                   component={Link}
                   to={module.routeProps.path}
                   selected={index === selectedIndex}
+                  borderRight={6}
                   onClick={(event) =>
                     handleListItemClick(event, module.name, index)
+                  }
+                  style={
+                    index === selectedIndex
+                      ? {
+                          borderLeft: '8px solid #3f51b5',
+
+                          paddingLeft: 8,
+                        }
+                      : null
                   }
                 >
                   <ListItemIcon>{module.icon}</ListItemIcon>
