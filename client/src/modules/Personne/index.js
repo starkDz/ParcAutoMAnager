@@ -1,7 +1,11 @@
 import React from 'react';
 import GroupIcon from '@material-ui/icons/Group';
-
-const Personne = () => <div></div>;
+import GlobalStats from './GlobaleStats';
+const Personne = () => (
+  <div>
+    <GlobalStats />
+  </div>
+);
 
 export default {
   routeProps: {

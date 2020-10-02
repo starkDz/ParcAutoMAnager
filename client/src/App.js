@@ -27,12 +27,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Tooltip from '@material-ui/core/Tooltip';
 import StorageIcon from '@material-ui/icons/Storage';
 import LanguageIcon from '@material-ui/icons/Language';
-// import DevicesIcon from '@material-ui/icons/Devices';
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';
-import modules from './modules'; // All the parent knows is that it has modules ...
-// import axios from 'axios';
-//Redux
-
+import modules from './modules';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTruckMoving } from '@fortawesome/free-solid-svg-icons';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
@@ -155,7 +152,7 @@ const App = (props) => {
   const [anchorLogin, setanchorLogin] = React.useState(null);
   const [openMenuLanguage, setopenMenuLanguage] = React.useState(false);
   const [openMenuLogin, setopenMenuLogin] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState();
   function handleListItemClick(event, thisTab, index) {
     setSelectedIndex(index);
     setCurrentTab(thisTab);
@@ -355,7 +352,7 @@ const App = (props) => {
               noWrap
               align='center'
             >
-              <LocalShippingIcon fontSize='large' />
+              <FontAwesomeIcon icon={faTruckMoving} />
             </Typography>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? (

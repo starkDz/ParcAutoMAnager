@@ -1,6 +1,11 @@
 import React from 'react';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
-const Mission = () => <div></div>;
+import GlobalStats from './GlobaleStats';
+const Mission = () => (
+  <div>
+    <GlobalStats />
+  </div>
+);
 
 export default {
   routeProps: {

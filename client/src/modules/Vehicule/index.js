@@ -1,6 +1,11 @@
 import React from 'react';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-const Vehicule = () => <div></div>;
+import GlobalStats from './GlobaleStats';
+const Vehicule = () => (
+  <div>
+    <GlobalStats />
+  </div>
+);
 
 export default {
   routeProps: {

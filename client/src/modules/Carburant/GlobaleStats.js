@@ -50,9 +50,7 @@ const GlobalStats = () => {
             <CardIcon color='danger'>
               <FontAwesomeIcon icon={faBriefcase} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>
-              Nombre des Missions d'aujourd'hui
-            </p>
+            <p className={classes.cardCategory}>Nombre des Missions</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>

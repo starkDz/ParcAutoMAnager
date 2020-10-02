@@ -12,11 +12,7 @@ import CardFooter from '../../components/Card/CardFooter.js';
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faTruckMoving,
-  faUserTie,
-  faBriefcase,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDay, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 const useStyles = makeStyles(styles);
 const GlobalStats = () => {
   const classes = useStyles();
@@ -44,15 +40,13 @@ const GlobalStats = () => {
 
   return (
     <Grid container spacing={0}>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
+      <GridItem xs={12} sm={6} md={6} lg={6}>
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='danger'>
               <FontAwesomeIcon icon={faBriefcase} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>
-              Nombre des Missions d'aujourd'hui
-            </p>
+            <p className={classes.cardCategory}>Nombre Totale des Missions</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -60,30 +54,16 @@ const GlobalStats = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
+      <GridItem xs={12} sm={6} md={6} lg={6}>
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-              <FontAwesomeIcon icon={faUserTie} size='4x' />
+              <FontAwesomeIcon icon={faCalendarDay} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Chauffeurs Libres</p>
+            <p className={classes.cardCategory}>
+              Nombre des Missions d'Aujourd'hui
+            </p>
             <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}></div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
-        <Card>
-          <CardHeader color='success' stats icon>
-            <CardIcon color='success'>
-              <FontAwesomeIcon icon={faTruckMoving} size='4x' />
-            </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Vehicules Libres</p>
-            <h1 className={classes.cardTitle}>
-              {countData.NumberRendezVousValide}
-            </h1>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}></div>

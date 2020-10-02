@@ -12,11 +12,7 @@ import CardFooter from '../../components/Card/CardFooter.js';
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faTruckMoving,
-  faUserTie,
-  faBriefcase,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 const useStyles = makeStyles(styles);
 const GlobalStats = () => {
   const classes = useStyles();
@@ -48,11 +44,9 @@ const GlobalStats = () => {
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='danger'>
-              <FontAwesomeIcon icon={faBriefcase} size='4x' />
+              <FontAwesomeIcon icon={faUserTie} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>
-              Nombre des Missions d'aujourd'hui
-            </p>
+            <p className={classes.cardCategory}>Nombre Totale des Chauffeurs</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -78,9 +72,11 @@ const GlobalStats = () => {
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
-              <FontAwesomeIcon icon={faTruckMoving} size='4x' />
+              <FontAwesomeIcon icon={faUserTie} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Vehicules Libres</p>
+            <p className={classes.cardCategory}>
+              Nombre des Chauffeurs en mission
+            </p>
             <h1 className={classes.cardTitle}>
               {countData.NumberRendezVousValide}
             </h1>

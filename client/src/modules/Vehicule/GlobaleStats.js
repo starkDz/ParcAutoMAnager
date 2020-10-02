@@ -12,11 +12,7 @@ import CardFooter from '../../components/Card/CardFooter.js';
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faTruckMoving,
-  faUserTie,
-  faBriefcase,
-} from '@fortawesome/free-solid-svg-icons';
+import { faTruckMoving, faTools } from '@fortawesome/free-solid-svg-icons';
 const useStyles = makeStyles(styles);
 const GlobalStats = () => {
   const classes = useStyles();
@@ -48,10 +44,10 @@ const GlobalStats = () => {
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='danger'>
-              <FontAwesomeIcon icon={faBriefcase} size='4x' />
+              <FontAwesomeIcon icon={faTruckMoving} size='4x' />
             </CardIcon>
             <p className={classes.cardCategory}>
-              Nombre des Missions d'aujourd'hui
+              Nombre des Totale des Vehicules
             </p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
@@ -64,9 +60,9 @@ const GlobalStats = () => {
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-              <FontAwesomeIcon icon={faUserTie} size='4x' />
+              <FontAwesomeIcon icon={faTruckMoving} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Chauffeurs Libres</p>
+            <p className={classes.cardCategory}>Nombre des Vehicules Libres</p>
             <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -76,11 +72,13 @@ const GlobalStats = () => {
       </GridItem>
       <GridItem xs={12} sm={12} md={12} lg={4}>
         <Card>
-          <CardHeader color='success' stats icon>
-            <CardIcon color='success'>
-              <FontAwesomeIcon icon={faTruckMoving} size='4x' />
+          <CardHeader color='warning' stats icon>
+            <CardIcon color='warning'>
+              <FontAwesomeIcon icon={faTools} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Vehicules Libres</p>
+            <p className={classes.cardCategory}>
+              Nombre des Vehicules en panne
+            </p>
             <h1 className={classes.cardTitle}>
               {countData.NumberRendezVousValide}
             </h1>
