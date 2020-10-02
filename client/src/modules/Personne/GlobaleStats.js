@@ -40,13 +40,13 @@ const GlobalStats = () => {
 
   return (
     <Grid container spacing={0}>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
+      <GridItem xs={12} sm={4} md={4} lg={4}>
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='danger'>
               <FontAwesomeIcon icon={faUserTie} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre Totale des Chauffeurs</p>
+            <p className={classes.cardCategory}>Nombre des Chauffeurs</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -54,13 +54,13 @@ const GlobalStats = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
+      <GridItem xs={12} sm={4} md={4} lg={4}>
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
               <FontAwesomeIcon icon={faUserTie} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Chauffeurs Libres</p>
+            <p className={classes.cardCategory}>Chauffeurs Libres</p>
             <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -68,15 +68,13 @@ const GlobalStats = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
+      <GridItem xs={12} sm={4} md={4} lg={4}>
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
               <FontAwesomeIcon icon={faUserTie} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>
-              Nombre des Chauffeurs en mission
-            </p>
+            <p className={classes.cardCategory}>Chauffeurs en Mission</p>
             <h1 className={classes.cardTitle}>
               {countData.NumberRendezVousValide}
             </h1>

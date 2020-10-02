@@ -44,15 +44,13 @@ const GlobalStats = () => {
 
   return (
     <Grid container spacing={0}>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
+      <GridItem xs={12} sm={4} md={4} lg={4}>
         <Card>
           <CardHeader color='danger' stats icon>
             <CardIcon color='danger'>
               <FontAwesomeIcon icon={faBriefcase} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>
-              Nombre des Missions d'aujourd'hui
-            </p>
+            <p className={classes.cardCategory}>Missions d'aujourd'hui</p>
             <h1 className={classes.cardTitle}>{countData.NumberPatient}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -60,13 +58,13 @@ const GlobalStats = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4} height={100}>
+      <GridItem xs={12} sm={4} md={4} lg={4}>
         <Card>
           <CardHeader color='info' stats icon>
             <CardIcon color='info'>
               <FontAwesomeIcon icon={faUserTie} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Chauffeurs Libres</p>
+            <p className={classes.cardCategory}>Chauffeurs Libres</p>
             <h1 className={classes.cardTitle}>{countData.NumberRendezVous}</h1>
           </CardHeader>
           <CardFooter stats>
@@ -74,13 +72,13 @@ const GlobalStats = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12} sm={12} md={12} lg={4}>
+      <GridItem xs={12} sm={4} md={4} lg={4}>
         <Card>
           <CardHeader color='success' stats icon>
             <CardIcon color='success'>
               <FontAwesomeIcon icon={faTruckMoving} size='4x' />
             </CardIcon>
-            <p className={classes.cardCategory}>Nombre des Vehicules Libres</p>
+            <p className={classes.cardCategory}>Vehicules Libres</p>
             <h1 className={classes.cardTitle}>
               {countData.NumberRendezVousValide}
             </h1>
