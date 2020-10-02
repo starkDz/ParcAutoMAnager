@@ -1,11 +1,10 @@
 import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
-import DataGridDemo from './dataGrid';
-import Grid from '@material-ui/core/Grid';
+import GlobalStats from './GlobaleStats';
 const Dashboard = () => (
-  <Grid container>
-    <DataGridDemo />
-  </Grid>
+  <div>
+    <GlobalStats />
+  </div>
 );
 
 export default {

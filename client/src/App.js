@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import './App.css';
 import clsx from 'clsx';
 import { makeStyles, useTheme, fade } from '@material-ui/core/styles';
 import {
@@ -33,6 +32,8 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import modules from './modules'; // All the parent knows is that it has modules ...
 // import axios from 'axios';
 //Redux
+
+import SettingsIcon from '@material-ui/icons/Settings';
 import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
 import Alert from './layout/alert';
@@ -103,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(0),
-    backgroundColor: theme.palette.background.paper,
   },
   search: {
     position: 'relative',
@@ -283,6 +283,16 @@ const App = (props) => {
                 aria-haspopup='true'
                 color='inherit'
               >
+                <SettingsIcon />
+              </IconButton>
+            </div>
+            <div>
+              <IconButton
+                aria-label='account of current user'
+                aria-controls='menus-appbar'
+                aria-haspopup='true'
+                color='inherit'
+              >
                 <StorageIcon />
               </IconButton>
             </div>
@@ -368,16 +378,15 @@ const App = (props) => {
                   component={Link}
                   to={module.routeProps.path}
                   selected={index === selectedIndex}
-                  borderRight={6}
                   onClick={(event) =>
                     handleListItemClick(event, module.name, index)
                   }
                   style={
                     index === selectedIndex
                       ? {
-                          borderLeft: '8px solid #3f51b5',
+                          borderLeft: '6px solid #3f51b5',
 
-                          paddingLeft: 8,
+                          paddingLeft: 10,
                         }
                       : null
                   }
