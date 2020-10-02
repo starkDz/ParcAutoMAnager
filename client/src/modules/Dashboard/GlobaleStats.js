@@ -28,16 +28,16 @@ const GlobalStats = () => {
 
   useEffect(() => {
     async function fetchData() {
-      await axios
-        .get(url + '/api/stats/getCount')
-        .then((response) => {
-          setCountData({
-            NumberRendezVous: response.data.NumberRendezVous,
-            NumberPatient: response.data.NumberPatient,
-            NumberRendezVousValide: response.data.NumberRendezVousValide,
-          });
-        })
-        .catch((error) => console.log(error.response));
+      // await axios
+      //   .get(url + '/api/stats/getCount')
+      //   .then((response) => {
+      //     setCountData({
+      //       NumberRendezVous: response.data.NumberRendezVous,
+      //       NumberPatient: response.data.NumberPatient,
+      //       NumberRendezVousValide: response.data.NumberRendezVousValide,
+      //     });
+      //   })
+      //   .catch((error) => console.log(error.response));
     }
     fetchData();
   }, []);
