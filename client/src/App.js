@@ -201,6 +201,7 @@ const App = (props) => {
             [classes.appBarShift]: open,
           })}
         >
+          <Alert />
           <Toolbar>
             <IconButton
               color='inherit'

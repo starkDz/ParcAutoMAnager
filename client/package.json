@@ -18,6 +18,7 @@
     "axios": "^0.20.0",
     "material-table": "^1.69.0",
     "moment": "^2.28.0",
+    "notistack": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-full-screen": "^0.3.1",
