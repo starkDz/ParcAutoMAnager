@@ -132,6 +132,8 @@ class Call_Api extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     // this.getData = this.getData.bind(this);
 
+    this.handleClickOpenDossier = this.handleClickOpenDossier.bind(this);
+    this.handleCloseDossier = this.handleCloseDossier.bind(this);
     this.handleCloseUpdate = this.handleCloseUpdate.bind(this);
     this.handleClickOpenUpdate = this.handleClickOpenUpdate.bind(this);
   }
@@ -161,6 +163,18 @@ class Call_Api extends Component {
       opensnack: false,
     });
   };
+
+  handleClickOpenDossier() {
+    this.setState({
+      openDossier: true,
+    });
+  }
+
+  handleCloseDossier() {
+    this.setState({
+      openDossier: false,
+    });
+  }
   handleClickOpenUpdate() {
     this.setState({
       openUpdate: true,
@@ -278,6 +292,16 @@ class Call_Api extends Component {
                     rowData.tableData.id,
                     rowData.sexe
                   ),
+              },
+              {
+                icon: () => (
+                  <FolderSharedIcon color='primary' fontSize='large' />
+                ),
+                tooltip: 'Afficher le dossier medicale',
+                onClick: (event, rowData) => {
+                  this.setState({ id: rowData._id });
+                  this.handleClickOpenDossier();
+                },
               },
             ]}
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}

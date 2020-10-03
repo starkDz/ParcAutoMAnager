@@ -16,33 +16,249 @@ export default function Loading_Item() {
   return (
     <Paper className={classes.root}>
       <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={150} animation='wave' />
+        <Grid key='2' item xs={3}>
+          <Skeleton variant='text' height={50} animation='wave' />
+        </Grid>
+        <Grid key='2' item xs={6}></Grid>
+        <Grid key='2' item xs={3}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={10}>
+              <Skeleton variant='text' height={50} animation='wave' />
+            </Grid>
+            <Grid key='2' item xs={2}>
+              <Skeleton variant='text' height={50} animation='wave' />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={100} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={100} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={100} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={100} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={100} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
           <Skeleton variant='text' height={100} animation='pulse' />
         </Grid>
       </Grid>
       <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
+        <Grid key='2' item xs={4}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={9}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
         </Grid>
-      </Grid>
-      <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
         </Grid>
-      </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+      </Grid>{' '}
       <Grid container justify='center' spacing={2}>
-        <Grid key='2' item xs={12}>
-          <Skeleton variant='text' height={50} />
+        <Grid key='2' item xs={4}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={9}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+      </Grid>{' '}
+      <Grid container justify='center' spacing={2}>
+        <Grid key='2' item xs={4}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={9}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+      </Grid>{' '}
+      <Grid container justify='center' spacing={2}>
+        <Grid key='2' item xs={4}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={9}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+      </Grid>{' '}
+      <Grid container justify='center' spacing={2}>
+        <Grid key='2' item xs={4}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={9}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+      </Grid>{' '}
+      <Grid container justify='center' spacing={2}>
+        <Grid key='2' item xs={4}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={9}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+      </Grid>{' '}
+      <Grid container justify='center' spacing={2}>
+        <Grid key='2' item xs={4}>
+          <Grid container justify='center' spacing={2}>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={1}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+            <Grid key='2' item xs={9}>
+              <Skeleton variant='text' height={50} animation='pulse' />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
+        </Grid>
+        <Grid key='2' item xs={2}>
+          <Skeleton variant='text' height={50} animation='pulse' />
         </Grid>
       </Grid>
     </Paper>
