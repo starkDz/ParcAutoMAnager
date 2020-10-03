@@ -43,6 +43,8 @@ import { connect } from 'react-redux';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import { setAlert } from './../../actions/alert';
 import VerticalLinearStepper from './Update/FormContent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserEdit, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -276,7 +278,7 @@ class Call_Api extends Component {
             data={items}
             actions={[
               {
-                icon: () => <EditIcon color='primary' />,
+                icon: () => <FontAwesomeIcon icon={faUserEdit} color='green' />,
                 tooltip: 'Edit patient',
                 onClick: (event, rowData) => {
                   this.setState({ id: rowData._id });
@@ -295,7 +297,7 @@ class Call_Api extends Component {
               },
               {
                 icon: () => (
-                  <FolderSharedIcon color='primary' fontSize='large' />
+                  <FontAwesomeIcon icon={faAddressCard} color='#3f51b5' />
                 ),
                 tooltip: 'Afficher le dossier medicale',
                 onClick: (event, rowData) => {

@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { setAlert } from './../../../actions/alert';
 import { connect } from 'react-redux';
+import { faIdCard } from '@fortawesome/free-solid-svg-icons';
 axios.defaults.baseURL = url;
 
 const useStyles = makeStyles((theme) => ({
@@ -133,7 +134,7 @@ const VerticalLinearStepper = (props) => {
       <div className={classes.toolbar} />
       <Grid container justify='left' spacing={2}>
         <Grid container justify='center' xs={12} sm={12} lg={12}>
-          <FontAwesomeIcon icon={faUser} size='8x' />
+          <FontAwesomeIcon icon={faIdCard} size='8x' color='#3f51b5' />
         </Grid>
         <Grid item xs={12} sm={12} lg={4}>
           <TextField
