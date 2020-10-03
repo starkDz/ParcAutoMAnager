@@ -273,7 +273,6 @@ class Call_Api extends Component {
                 width: '10%',
               },
               { title: 'Address', field: 'address', width: '20%' },
-              { title: 'Recu par', field: 'owner.name', width: '10%' },
             ]}
             data={items}
             actions={[
