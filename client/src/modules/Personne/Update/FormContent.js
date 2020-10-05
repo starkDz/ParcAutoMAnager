@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { url } from '../../../defaults/default';
 import axios from 'axios';
+import InputMask from 'react-input-mask';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -66,6 +67,9 @@ const VerticalLinearStepper = (props) => {
             sexe: response.data.sexe,
             groupage: response.data.groupage,
             telephone: response.data.telephone,
+            telephone: response.data.telephone,
+            embauche: response.data.embauche,
+            permis: response.data.permis,
             dateNaissance: response.data.dateNaissance,
           });
         })
@@ -83,6 +87,9 @@ const VerticalLinearStepper = (props) => {
     observation,
     dateNaissance,
     groupage,
+    embauche,
+    telephone2,
+    permis,
   } = formData;
   const onChange = (e) =>
     setFormData({
@@ -100,6 +107,9 @@ const VerticalLinearStepper = (props) => {
       observation,
       dateNaissance,
       groupage,
+      embauche,
+      telephone2,
+      permis,
     };
 
     try {
@@ -114,24 +124,29 @@ const VerticalLinearStepper = (props) => {
           },
         })
         .then((response) => {
-          // setFormData({
-          //   nom: '',
-          //   prenom: '',
-          //   address: '',
-          //   telephone: '',
-          //   observation: '/',
-          //   dateNaissance: '',
-          //   groupage: '',
-          // });
+          props.sendData(
+            nom,
+            prenom,
+            address,
+            telephone,
+            sexe,
+            permis,
+            embauche,
+            props.index
+          );
           props.setAlert('La mise a jours a ete faite avec Success', 'success');
         })
-        .catch((error) => console.log(error.response));
-    } catch (err) {}
+        .catch((error) =>
+          props.setAlert("La mise a jours n'a pas eu lieu", 'error')
+        );
+    } catch (err) {
+      props.setAlert("La mise a jours n'a pas eu lieu", 'error');
+    }
   };
 
   return (
     <div className={classes.root} lg={5}>
-      <div className={classes.toolbar} />
+      {/* <div className={classes.toolbar} /> */}
       <Grid container justify='left' spacing={2}>
         <Grid container justify='center' xs={12} sm={12} lg={12}>
           <FontAwesomeIcon icon={faIdCard} size='8x' color='#3f51b5' />
@@ -164,19 +179,6 @@ const VerticalLinearStepper = (props) => {
         </Grid>
 
         <Grid item xs={12} sm={12} lg={4}>
-          <TextField
-            label='Numero de telephone'
-            placeholder='Numero de telephone'
-            helperText=''
-            fullWidth
-            margin='normal'
-            variant='outlined'
-            name='telephone'
-            value={telephone}
-            onChange={(e) => onChange(e)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={12} lg={4}>
           <FormControl
             variant='outlined'
             margin='normal'
@@ -190,14 +192,64 @@ const VerticalLinearStepper = (props) => {
               value={sexe}
               onChange={(e) => onChange(e)}
             >
-              <MenuItem value='Homme' key='Homme'>
-                Homme
-              </MenuItem>
-              <MenuItem value='Femme' key='Femme'>
-                Femme
-              </MenuItem>
+              <MenuItem value='Homme'>Homme</MenuItem>
+              <MenuItem value='Femme'>Femme</MenuItem>
             </Select>
           </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={6} lg={4}>
+          <TextField
+            placeholder='Date Naissance'
+            margin='normal'
+            helperText='Date Naissance'
+            fullWidth
+            type='date'
+            name='dateNaissance'
+            value={dateNaissance}
+            onChange={(e) => onChange(e)}
+            variant='outlined'
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={4}>
+          <InputMask
+            mask='(0)999 99 99 99'
+            value={telephone}
+            onChange={(e) => onChange(e)}
+            maskChar='_'
+          >
+            {() => (
+              <TextField
+                label='Numero de telephone'
+                placeholder='Numero de telephone'
+                helperText=''
+                fullWidth
+                name='telephone'
+                margin='normal'
+                variant='outlined'
+              />
+            )}
+          </InputMask>
+        </Grid>
+        <Grid item xs={12} sm={12} lg={4}>
+          <InputMask
+            mask='(0)999 99 99 99'
+            value={telephone2}
+            onChange={(e) => onChange(e)}
+            maskChar='_'
+          >
+            {() => (
+              <TextField
+                label='Numero de telephone N*2'
+                placeholder='Numero de telephone N*2'
+                helperText=''
+                fullWidth
+                name='telephone2'
+                margin='normal'
+                variant='outlined'
+              />
+            )}
+          </InputMask>
         </Grid>
         <Grid item xs={12} sm={12} lg={4}>
           <FormControl
@@ -226,15 +278,28 @@ const VerticalLinearStepper = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={4}>
+        <Grid item xs={12} sm={12} lg={4}>
           <TextField
-            placeholder='Date Naissance'
-            margin='normal'
+            label='Numero de Permis de conduite'
+            placeholder='Numero de Permis de conduite'
             helperText=''
             fullWidth
+            margin='normal'
+            variant='outlined'
+            name='permis'
+            value={permis}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={6} lg={4}>
+          <TextField
+            placeholder="Date d'Embauche"
+            margin='normal'
+            helperText="Date d'Embauche"
+            fullWidth
             type='date'
-            name='dateNaissance'
-            value={dateNaissance}
+            name='embauche'
+            value={embauche}
             onChange={(e) => onChange(e)}
             variant='outlined'
           />

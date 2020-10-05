@@ -19,7 +19,16 @@ const ChauffeurSchema = new mongoose.Schema({
   dateNaissance: {
     type: Date,
   },
+  embauche: {
+    type: Date,
+  },
   telephone: {
+    type: String,
+  },
+  telephone2: {
+    type: String,
+  },
+  permis: {
     type: String,
   },
   address: {

@@ -43,6 +43,7 @@ import { connect } from 'react-redux';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import { setAlert } from './../../actions/alert';
 import VerticalLinearStepper from './Update/FormContent';
+import FullScreenDialog from './Add/FullScreenForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 const tableIcons = {
@@ -107,9 +108,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
+
+    padding: theme.spacing(5, 30),
   },
 }));
 class Call_Api extends Component {
@@ -123,6 +123,7 @@ class Call_Api extends Component {
       dense: false,
       selectedRow: null,
       open: false,
+      rowIndex: 0,
       openDossier: false,
       openUpdate: false,
       opensnack: false,
@@ -132,29 +133,87 @@ class Call_Api extends Component {
 
     this.DeleteThis = this.DeleteThis.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
-    // this.getData = this.getData.bind(this);
+    this.getUpdatedData = this.getUpdatedData.bind(this);
+    this.getNewData = this.getNewData.bind(this);
 
     this.handleClickOpenDossier = this.handleClickOpenDossier.bind(this);
     this.handleCloseDossier = this.handleCloseDossier.bind(this);
     this.handleCloseUpdate = this.handleCloseUpdate.bind(this);
     this.handleClickOpenUpdate = this.handleClickOpenUpdate.bind(this);
+    this.updateItem = this.updateItem.bind(this);
   }
-  // getData = (nom, prenom, address, telephone, sexe, id) => {
-  //   // do not forget to bind getData in constructor
-  //   this.setState({
-  //     ...this.state,
-  //     items: this.state.items.concat([
-  //       {
-  //         nom: nom,
-  //         prenom: prenom,
-  //         address: address,
-  //         telephone: telephone,
-  //         sexe: sexe,
-  //         _id: id,
-  //       },
-  //     ]),
-  //   });
-  // };
+  updateItem = (
+    index,
+    nom,
+    prenom,
+    address,
+    telephone,
+    embauche,
+    permis,
+    sexe
+  ) => {
+    const newItems = this.state.items;
+    newItems[index].nom = nom;
+    newItems[index].embauche = embauche;
+    newItems[index].permis = permis;
+    newItems[index].prenom = prenom;
+    newItems[index].address = address;
+    newItems[index].telephone = telephone;
+    newItems[index].sexe = sexe;
+    this.setState({ ...this.state, items: newItems });
+    // console.log(newItems);
+  };
+  getNewData = (
+    nom,
+    prenom,
+    address,
+    telephone,
+    sexe,
+    permis,
+    embauche,
+    id
+  ) => {
+    // console.log(this.state.items);
+    // do not forget to bind getData in constructor
+    const newItems = [
+      {
+        nom: nom,
+        prenom: prenom,
+        address: address,
+        telephone: telephone,
+        sexe: sexe,
+        permis: permis,
+        embauche: embauche,
+        _id: id,
+      },
+    ];
+    this.setState({
+      ...this.state,
+      items: newItems.concat(this.state.items),
+    });
+  };
+  getUpdatedData = (
+    nom,
+    prenom,
+    address,
+    telephone,
+    sexe,
+    permis,
+    embauche,
+    index
+  ) => {
+    this.updateItem(
+      index,
+      nom,
+      prenom,
+      address,
+      telephone,
+      embauche,
+      permis,
+      sexe
+    );
+    this.handleCloseUpdate();
+  };
 
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -205,6 +264,7 @@ class Call_Api extends Component {
     }
   }
   async componentDidMount() {
+    const cookie = new Cookies();
     fetch(url + '/api/chauffeur')
       .then((response) => response.json())
       .then(
@@ -232,6 +292,8 @@ class Call_Api extends Component {
       opensnack,
       msg,
       type,
+      rowIndex,
+      number,
       openUpdate,
       id,
     } = this.state;
@@ -239,18 +301,17 @@ class Call_Api extends Component {
       return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
       return (
-        <div>
+        <div style={{ padding: 15 }}>
           <Loading_Item />
         </div>
       );
     } else {
       return (
-        <div>
+        <div style={{ padding: 15 }}>
           <Snackbar
             open={opensnack}
             autoHideDuration={2000}
             onClose={this.handleClose}
-            key={12}
           >
             <Alert onClose={this.handleClose} severity={type}>
               {msg}
@@ -263,14 +324,24 @@ class Call_Api extends Component {
               {
                 title: 'Nom',
                 field: 'nom',
-                width: '20%',
+                width: '10%',
               },
-              { title: 'Prenom', field: 'prenom', width: '20%' },
+              { title: 'Prenom', field: 'prenom', width: '10%' },
               { title: 'Sexe', field: 'sexe', width: '10%' },
               {
                 title: 'Telephone',
                 field: 'telephone',
                 width: '10%',
+              },
+              {
+                title: 'Numero de Permis',
+                field: 'permis',
+                width: '20%',
+              },
+              {
+                title: "date d'embauche",
+                field: 'embauche',
+                width: '20%',
               },
               { title: 'Address', field: 'address', width: '20%' },
             ]}
@@ -280,7 +351,10 @@ class Call_Api extends Component {
                 icon: () => <FontAwesomeIcon icon={faUserEdit} color='green' />,
                 tooltip: 'Edit patient',
                 onClick: (event, rowData) => {
-                  this.setState({ id: rowData._id });
+                  this.setState({
+                    id: rowData._id,
+                    rowIndex: rowData.tableData.id,
+                  });
                   this.handleClickOpenUpdate();
                 },
               },
@@ -308,7 +382,7 @@ class Call_Api extends Component {
             onRowClick={(evt, selectedRow) => this.setState({ selectedRow })}
             options={{
               exportButton: true,
-              pageSize: 10,
+              pageSize: 20,
               pageSizeOptions: [5, 10, 20, 50, 100],
               sorting: true,
               rowStyle: (rowData) => ({
@@ -320,6 +394,8 @@ class Call_Api extends Component {
               },
             }}
           />
+
+          <FullScreenDialog sendData={this.getNewData} />
           <Dialog
             fullScreen
             open={openUpdate}
@@ -353,7 +429,11 @@ class Call_Api extends Component {
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <VerticalLinearStepper identifier={id} />
+            <VerticalLinearStepper
+              sendData={this.getUpdatedData}
+              identifier={id}
+              index={rowIndex}
+            />
           </Dialog>
         </div>
       );

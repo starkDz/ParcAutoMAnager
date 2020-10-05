@@ -24,7 +24,10 @@ router.post(
       nom,
       prenom,
       telephone,
+      telephone2,
       address,
+      permis,
+      embauche,
       sexe,
       dateNaissance,
       observation,
@@ -44,6 +47,9 @@ router.post(
     if (observation) Fields.observation = observation;
     Fields.code = nom + '.' + prenom;
     if (groupage) Fields.groupage = groupage;
+    if (embauche) Fields.embauche = embauche;
+    if (telephone2) Fields.telephone2 = telephone2;
+    if (permis) Fields.permis = permis;
 
     try {
       element = new Chauffeur(Fields);
@@ -100,7 +106,7 @@ router.get('/ById/:id', async (req, res) => {
   }
 });
 
-router.delete('/all/', auth, async (req, res) => {
+router.delete('/', async (req, res) => {
   try {
     //remove type
     await Chauffeur.deleteMany({});
@@ -152,6 +158,9 @@ router.post(
       dateNaissance,
       observation,
       code,
+      embauche,
+      telephone2,
+      permis,
       groupage,
     } = req.body;
 
@@ -167,6 +176,9 @@ router.post(
     if (observation) Fields.observation = observation;
     Fields.code = nom + '.' + prenom;
     if (groupage) Fields.groupage = groupage;
+    if (embauche) Fields.embauche = embauche;
+    if (telephone2) Fields.telephone2 = telephone2;
+    if (permis) Fields.permis = permis;
 
     try {
       element = await Chauffeur.findOneAndUpdate(
