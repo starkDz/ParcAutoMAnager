@@ -33,6 +33,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
+import { setAlert } from './../../../actions/alert';
 
 import InputMask from 'react-input-mask';
 axios.defaults.baseURL = url;
@@ -122,37 +123,36 @@ const FullScreenDialog = (props) => {
     try {
       const cookies = new Cookies();
       const body = JSON.stringify(element);
-      const res = await axios.post('/api/chauffeur', body, {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Access-Control-Allow-Origin': '*',
-          'x-auth-token': cookies.get('token'),
-        },
-      });
-      props.sendData(
-        nom,
-        prenom,
-        address,
-        telephone,
-        sexe,
-        permis,
-        embauche,
-        res.data._id
-      );
-
-      if (sexe == 'Homme') props.changeStates(1, 1, 0);
-      else props.changeStates(1, 0, 1);
-      setOpen(false);
-      // setFormData({
-      //   nom: '',
-      //   prenom: '',
-      //   address: '',
-      //   telephone: '',
-      //   observation: '/',
-      //   dateNaissance: '',
-      //   groupage: '',
-      // });
-    } catch (err) {}
+      const res = await axios
+        .post('/api/chauffeur', body, {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'x-auth-token': cookies.get('token'),
+          },
+        })
+        .then((response) => {
+          props.sendData(
+            nom,
+            prenom,
+            address,
+            telephone,
+            sexe,
+            permis,
+            embauche,
+            response.data._id
+          );
+          // if (sexe == 'Homme') props.changeStates(1, 1, 0);
+          // else props.changeStates(1, 0, 1);
+          setOpen(false);
+          props.setAlert('La mise a jours a ete faite avec Success', 'success');
+        })
+        .catch((error) =>
+          props.setAlert("La mise a jours n'a pas eu lieu", 'error')
+        );
+    } catch (err) {
+      props.setAlert("La mise a jours n'a pas eu lieu", 'error');
+    }
   };
   return (
     <div>
@@ -394,19 +394,7 @@ const FullScreenDialog = (props) => {
   );
 };
 
-const mapDispatchProps = (dispatch) => {
-  return {
-    changeStates: (NumberPatient, NumberMen, NumberWomen) => {
-      dispatch({
-        type: 'addPatientStates',
-        NumberPatient: NumberPatient,
-        NumberWomen: NumberWomen,
-        NumberMen: NumberMen,
-      });
-    },
-  };
+FullScreenDialog.propTypes = {
+  setAlert: PropTypes.func.isRequired,
 };
-const mapStateProps = (state) => {
-  return {};
-};
-export default connect(mapStateProps, mapDispatchProps)(FullScreenDialog);
+export default connect(null, { setAlert })(FullScreenDialog);
