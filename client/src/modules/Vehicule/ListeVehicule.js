@@ -45,7 +45,11 @@ import { setAlert } from './../../actions/alert';
 import VerticalLinearStepper from './Update/FormContent';
 import FullScreenDialog from './Add/FullScreenForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserEdit, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faListAlt,
+  faQuestionCircle,
+} from '@fortawesome/free-solid-svg-icons';
 const tableIcons = {
   Add: forwardRef((props, ref: React.Ref<SVGSVGElement>) => (
     <AddBox {...props} ref={ref} />
@@ -127,7 +131,7 @@ class Call_Api extends Component {
       openDossier: false,
       openUpdate: false,
       opensnack: false,
-      Title: 'Liste des Chauffeurs',
+      Title: 'Liste des Vehicules',
       a: null,
     };
 
@@ -144,46 +148,42 @@ class Call_Api extends Component {
   }
   updateItem = (
     index,
-    nom,
-    prenom,
-    address,
-    telephone,
-    embauche,
-    permis,
-    sexe
+    marque,
+    model,
+    kilometrage,
+    categorie,
+    matricule,
+    dateMiseEnService
   ) => {
     const newItems = this.state.items;
-    newItems[index].nom = nom;
-    newItems[index].embauche = embauche;
-    newItems[index].permis = permis;
-    newItems[index].prenom = prenom;
-    newItems[index].address = address;
-    newItems[index].telephone = telephone;
-    newItems[index].sexe = sexe;
+    newItems[index].marque = marque;
+    newItems[index].model = model;
+    newItems[index].kilometrage = kilometrage;
+    newItems[index].categorie = categorie;
+    newItems[index].matricule = matricule;
+    newItems[index].dateMiseEnService = dateMiseEnService;
     this.setState({ ...this.state, items: newItems });
     // console.log(newItems);
   };
   getNewData = (
-    nom,
-    prenom,
-    address,
-    telephone,
-    sexe,
-    permis,
-    embauche,
+    marque,
+    model,
+    kilometrage,
+    categorie,
+    matricule,
+    dateMiseEnService,
     id
   ) => {
     // console.log(this.state.items);
     // do not forget to bind getData in constructor
     const newItems = [
       {
-        nom: nom,
-        prenom: prenom,
-        address: address,
-        telephone: telephone,
-        sexe: sexe,
-        permis: permis,
-        embauche: embauche,
+        marque: marque,
+        model: model,
+        kilometrage: kilometrage,
+        categorie: categorie,
+        matricule: matricule,
+        dateMiseEnService: dateMiseEnService,
         _id: id,
       },
     ];
@@ -193,24 +193,22 @@ class Call_Api extends Component {
     });
   };
   getUpdatedData = (
-    nom,
-    prenom,
-    address,
-    telephone,
-    sexe,
-    permis,
-    embauche,
+    marque,
+    model,
+    kilometrage,
+    categorie,
+    matricule,
+    dateMiseEnService,
     index
   ) => {
     this.updateItem(
       index,
-      nom,
-      prenom,
-      address,
-      telephone,
-      embauche,
-      permis,
-      sexe
+      marque,
+      model,
+      kilometrage,
+      categorie,
+      matricule,
+      dateMiseEnService
     );
     this.handleCloseUpdate();
   };
@@ -250,7 +248,7 @@ class Call_Api extends Component {
   async DeleteThis(id, index, sexe) {
     try {
       const cookie = new Cookies();
-      await axios.delete(url + '/api/chauffeur/' + id, {
+      await axios.delete(url + '/api/vehicule/' + id, {
         headers: {
           'Access-Control-Allow-Origin': '*',
         },
@@ -265,7 +263,7 @@ class Call_Api extends Component {
   }
   async componentDidMount() {
     const cookie = new Cookies();
-    fetch(url + '/api/chauffeur')
+    fetch(url + '/api/vehicule')
       .then((response) => response.json())
       .then(
         (res) => {
@@ -322,34 +320,38 @@ class Call_Api extends Component {
             title={Title}
             columns={[
               {
-                title: 'Nom',
-                field: 'nom',
+                title: 'Marque',
+                field: 'marque',
                 width: '10%',
               },
-              { title: 'Prenom', field: 'prenom', width: '10%' },
-              { title: 'Sexe', field: 'sexe', width: '10%' },
+              { title: 'Model', field: 'model', width: '10%' },
+              { title: 'Kilometrage', field: 'kilometrage', width: '10%' },
               {
-                title: 'Telephone',
-                field: 'telephone',
+                title: 'Matricule',
+                field: 'matricule',
                 width: '10%',
               },
               {
-                title: 'Numero de Permis',
-                field: 'permis',
+                title: 'Categorie',
+                field: 'categorie',
                 width: '20%',
               },
               {
-                title: "date d'embauche",
-                field: 'embauche',
+                title: 'date de mise en service',
+                field: 'dateMiseEnService',
                 width: '20%',
               },
-              { title: 'Address', field: 'address', width: '20%' },
+              {
+                title: "date expiration d'assurance",
+                field: 'address',
+                width: '20%',
+              },
             ]}
             data={items}
             actions={[
               {
-                icon: () => <FontAwesomeIcon icon={faUserEdit} color='green' />,
-                tooltip: 'Edit Chauffeur',
+                icon: () => <FontAwesomeIcon icon={faEdit} color='green' />,
+                tooltip: 'Edit Vehicule',
                 onClick: (event, rowData) => {
                   this.setState({
                     id: rowData._id,
@@ -360,7 +362,7 @@ class Call_Api extends Component {
               },
               {
                 icon: () => <DeleteIcon color='secondary' />,
-                tooltip: 'Delete Chauffeur',
+                tooltip: 'Delete Vehicule',
                 onClick: (event, rowData) =>
                   this.DeleteThis(
                     rowData._id,
@@ -370,9 +372,9 @@ class Call_Api extends Component {
               },
               {
                 icon: () => (
-                  <FontAwesomeIcon icon={faAddressCard} color='#3f51b5' />
+                  <FontAwesomeIcon icon={faQuestionCircle} color='#3f51b5' />
                 ),
-                tooltip: 'Afficher le dossier du chauffeur',
+                tooltip: 'Afficher les Details',
                 onClick: (event, rowData) => {
                   this.setState({ id: rowData._id });
                   this.handleClickOpenDossier();
@@ -422,11 +424,8 @@ class Call_Api extends Component {
                     flex: 1,
                   }}
                 >
-                  Modifier les information du chauffeur
+                  Modifier les informations du Vehicule
                 </Typography>
-                <IconButton color='inherit' aria-label='close'>
-                  <FolderSharedIcon style={{ fontSize: 50 }} />
-                </IconButton>
               </Toolbar>
             </AppBar>
             <VerticalLinearStepper

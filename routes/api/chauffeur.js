@@ -85,16 +85,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-router.get('/ByCode/:id', async (req, res) => {
-  try {
-    //remove type
-    const element = await Chauffeur.findOne({ code: req.params.id });
-    res.json(element);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
+
 router.get('/ById/:id', async (req, res) => {
   try {
     //remove type
