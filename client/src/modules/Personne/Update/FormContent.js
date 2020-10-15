@@ -50,6 +50,12 @@ const VerticalLinearStepper = (props) => {
     address: '',
     telephone: '',
     observation: '/',
+    sexe: '',
+    dateNaissance: '',
+    groupage: '',
+    embauche: '',
+    telephone2: '',
+    permis: '',
   });
 
   useEffect(() => {
@@ -57,7 +63,7 @@ const VerticalLinearStepper = (props) => {
       await axios
         .get(url + '/api/chauffeur/ById/' + props.identifier)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setFormData({
             ...formData,
             nom: response.data.nom,

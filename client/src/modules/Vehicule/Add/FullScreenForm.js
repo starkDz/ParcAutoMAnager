@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Dialog,
@@ -34,12 +34,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckMoving } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { setAlert } from './../../../actions/alert';
+import { loadCollections } from './../../../actions/setStates';
+import ControlPointIcon from '@material-ui/icons/ControlPoint';
 
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import Drawer from '@material-ui/core/Drawer';
 import InputMask from 'react-input-mask';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
+  },
+  myRoot: {
+    width: '100%',
+
+    padding: theme.spacing(5, 5),
   },
   fateh: {
     position: 'fixed',
@@ -73,12 +82,23 @@ const FullScreenDialog = (props) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  const [state, setState] = React.useState({
+    open: false,
+    right: false,
+    couleur: false,
+    categorie: false,
+    marque: false,
+    carburant: false,
+  });
+  const handleCloseAdd = (e) => {
+    setState({ ...state, open: false, right: false });
+  };
   const handleClose = () => {
     setOpen(false);
   };
   const [formData, setFormData] = React.useState({});
   const {
+    description_Fr,
     driver,
     marque,
     model,
@@ -91,11 +111,56 @@ const FullScreenDialog = (props) => {
     couleur,
     carburant,
   } = formData;
+  const addCategorie = (e) => {
+    props.setAlert('Add new Categorie', 'info');
+  };
+  const addMarque = (e) => {
+    toggleDrawer('right', true);
+
+    props.setAlert('Add new Brand', 'info');
+  };
+  const addModel = (e) => {
+    props.setAlert('Add new Model', 'info');
+  };
+  const addColor = (e) => {
+    toggleDrawer('right', true);
+    props.setAlert('Add new Color', 'info');
+  };
   const onChange = (e) =>
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  const sendValue = async (e, val) => {
+    e.preventDefault();
+    // console.log(val);
+    const element = { description_Fr };
+    try {
+      const cookies = new Cookies();
+      const body = JSON.stringify(element);
+      const res = await axios
+        .post('/api/' + val, body, {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            // 'x-auth-token': cookies.get('token'),
+          },
+        })
+        .then((res) => {
+          // if (sexe == 'Homme') props.changeStates(1, 1, 0);
+          // else props.changeStates(1, 0, 1);
+          props.loadCollections(res.data, 'addTo' + val);
+          props.setAlert('L ajout a ete fait avec Success', 'success');
+          setFormData({ ...formData, description_Fr: '' });
+        })
+        .catch((error) =>
+          props.setAlert("L ajout n'a pas eu lieu ..", 'error')
+        );
+    } catch (err) {
+      props.setAlert("L ajout n'a pas eu lieu ...", 'error');
+    }
+  };
+
   const send = async (e) => {
     e.preventDefault();
     const element = {
@@ -124,6 +189,7 @@ const FullScreenDialog = (props) => {
           },
         })
         .then((response) => {
+          props.loadCollections(1, 'addVehiculeNumber');
           props.sendData(
             marque,
             model,
@@ -136,17 +202,88 @@ const FullScreenDialog = (props) => {
           // if (sexe == 'Homme') props.changeStates(1, 1, 0);
           // else props.changeStates(1, 0, 1);
           setOpen(false);
-          props.setAlert('La mise a jours a ete faite avec Success', 'success');
+          props.setAlert('L ajout a ete fait avec Success', 'success');
         })
-        .catch((error) =>
-          props.setAlert("La mise a jours n'a pas eu lieu", 'error')
-        );
+        .catch((error) => props.setAlert("L ajout n'a pas eu lieu", 'error'));
     } catch (err) {
-      props.setAlert("La mise a jours n'a pas eu lieu", 'error');
+      props.setAlert("L ajout n'a pas eu lieu", 'error');
     }
   };
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    setState({ ...state, open: true, [anchor]: open });
+  };
+  const list = (anchor) => (
+    <div role='presentation' className={classes.myRoot}>
+      <div className={classes.toolbar} />
+      <Grid container spacing={2}>
+        <Grid container justify='center'>
+          <PostAddIcon style={{ width: 110, height: 110 }} color='primary' />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={12}>
+          <TextField
+            label='Nouveau Element'
+            placeholder='Nouveau Element'
+            helperText=''
+            fullWidth
+            margin='normal'
+            variant='outlined'
+            name='description_Fr'
+            value={description_Fr}
+            onChange={(e) => onChange(e)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12} lg={6}>
+          <Button
+            variant='contained'
+            size='large'
+            fullWidth
+            color='primary'
+            name={anchor}
+            onClick={(e) => sendValue(e, anchor)}
+          >
+            Ajouter {anchor}
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={12} lg={6}>
+          <Button
+            variant='contained'
+            fullWidth
+            size='large'
+            color='secondary'
+            onClick={toggleDrawer('right', false)}
+          >
+            Annuler
+          </Button>
+        </Grid>
+      </Grid>
+    </div>
+  );
+  useEffect(() => {
+    // setFormData({ ...formData, Chauffeurs: props.Chauffeur });
+    // console.log(props);
+  }, []);
+  // const Chauffeurs = props.Chauffeur;
   return (
     <div>
+      <div>
+        {['carburant', 'categorie', 'marque', 'couleur'].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Drawer
+              anchor='right'
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
+      </div>
       <Fab
         onClick={handleClickOpen}
         variant='extended'
@@ -207,13 +344,16 @@ const FullScreenDialog = (props) => {
                     value={driver}
                     onChange={(e) => onChange(e)}
                   >
-                    <MenuItem value='O+'>O+</MenuItem>
-                    <MenuItem value='O-'>O-</MenuItem>
-                    <MenuItem value='A+'>A+</MenuItem>
+                    {props.Chauffeur &&
+                      props.Chauffeur.map((option) => (
+                        <MenuItem key={option._id} value={option._id}>
+                          {option.nom + ' ' + option.prenom}
+                        </MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={12} lg={4}>
+              <Grid item xs={12} sm={12} lg={3}>
                 <FormControl
                   variant='outlined'
                   margin='normal'
@@ -229,18 +369,29 @@ const FullScreenDialog = (props) => {
                     value={marque}
                     onChange={(e) => onChange(e)}
                   >
-                    <MenuItem value='PEUGEOT'>PEUGEOT</MenuItem>
-                    <MenuItem value='RENAULT'>RENAULT</MenuItem>
-                    <MenuItem value='MERCEDES'>MERCEDES</MenuItem>
-                    <MenuItem value='SONACOM'>SONACOM</MenuItem>
-                    <MenuItem value='SHACMANN'>SHACMANN</MenuItem>
-                    <MenuItem value='SEAT'>SEAT</MenuItem>
-                    <MenuItem value='AUDI'>AUDI</MenuItem>
-                    <MenuItem value='FIAT'>FIAT</MenuItem>
+                    {props.Marque &&
+                      props.Marque.map((option) => (
+                        <MenuItem
+                          key={option.description_Fr}
+                          value={option.description_Fr}
+                        >
+                          {option.description_Fr}
+                        </MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={12} lg={4}>
+              <Grid item xs={12} sm={12} lg={1}>
+                <IconButton
+                  edge='start'
+                  color='secondary'
+                  onClick={toggleDrawer('marque', true)}
+                  margin='normal'
+                >
+                  <ControlPointIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={3}>
                 <FormControl
                   variant='outlined'
                   margin='normal'
@@ -266,7 +417,17 @@ const FullScreenDialog = (props) => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={12} lg={4}>
+              <Grid item xs={12} sm={12} lg={1}>
+                <IconButton
+                  edge='start'
+                  margin='normal'
+                  onClick={addModel}
+                  color='secondary'
+                >
+                  <ControlPointIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={3}>
                 <FormControl
                   variant='outlined'
                   margin='normal'
@@ -282,10 +443,27 @@ const FullScreenDialog = (props) => {
                     value={categorie}
                     onChange={(e) => onChange(e)}
                   >
-                    <MenuItem value='Remorque'>Remorque</MenuItem>
-                    <MenuItem value='10Tone'>10Tone</MenuItem>
+                    {props.Categorie &&
+                      props.Categorie.map((option) => (
+                        <MenuItem
+                          key={option.description_Fr}
+                          value={option.description_Fr}
+                        >
+                          {option.description_Fr}
+                        </MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={1}>
+                <IconButton
+                  edge='start'
+                  color='secondary'
+                  margin='normal'
+                  onClick={toggleDrawer('categorie', true)}
+                >
+                  <ControlPointIcon />
+                </IconButton>
               </Grid>
               <Grid item xs={12} sm={12} lg={4}>
                 <InputMask
@@ -320,7 +498,7 @@ const FullScreenDialog = (props) => {
                   onChange={(e) => onChange(e)}
                 />
               </Grid>
-              <Grid item xs={12} sm={12} lg={4}>
+              <Grid item xs={12} sm={12} lg={3}>
                 <FormControl
                   variant='outlined'
                   margin='normal'
@@ -336,13 +514,29 @@ const FullScreenDialog = (props) => {
                     value={carburant}
                     onChange={(e) => onChange(e)}
                   >
-                    <MenuItem value='Diesel'>Diesel</MenuItem>
-                    <MenuItem value='Essence'>Essence</MenuItem>
-                    <MenuItem value='Sans Plomb'>Sans Plomb</MenuItem>
+                    {props.Carburant &&
+                      props.Carburant.map((option) => (
+                        <MenuItem
+                          key={option.description_Fr}
+                          value={option.description_Fr}
+                        >
+                          {option.description_Fr}
+                        </MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={12} lg={4}>
+              <Grid item xs={12} sm={12} lg={1}>
+                <IconButton
+                  edge='start'
+                  onClick={toggleDrawer('carburant', true)}
+                  color='secondary'
+                  margin='normal'
+                >
+                  <ControlPointIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={3}>
                 <FormControl
                   variant='outlined'
                   margin='normal'
@@ -358,10 +552,24 @@ const FullScreenDialog = (props) => {
                     value={couleur}
                     onChange={(e) => onChange(e)}
                   >
-                    <MenuItem value='Noire'>Noire</MenuItem>
-                    <MenuItem value='Blanc'>Blanc</MenuItem>
+                    {props.Couleur &&
+                      props.Couleur.map((option) => (
+                        <MenuItem key={option._id} value={option._id}>
+                          {option.description_Fr}
+                        </MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={12} lg={1}>
+                <IconButton
+                  edge='start'
+                  onClick={toggleDrawer('couleur', true)}
+                  color='secondary'
+                  margin='normal'
+                >
+                  <ControlPointIcon />
+                </IconButton>
               </Grid>
               <Grid item xs={12} sm={6} md={6} lg={4}>
                 <TextField
@@ -424,5 +632,18 @@ const FullScreenDialog = (props) => {
 
 FullScreenDialog.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  loadCollections: PropTypes.func.isRequired,
 };
-export default connect(null, { setAlert })(FullScreenDialog);
+
+const mapStateProps = (state) => {
+  return {
+    Chauffeur: state.rootReducer.Chauffeur,
+    Marque: state.rootReducer.Marque,
+    Categorie: state.rootReducer.Categorie,
+    Couleur: state.rootReducer.Couleur,
+    Carburant: state.rootReducer.Carburant,
+  };
+};
+export default connect(mapStateProps, { loadCollections, setAlert })(
+  FullScreenDialog
+);

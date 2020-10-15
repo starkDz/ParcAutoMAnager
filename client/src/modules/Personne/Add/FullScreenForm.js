@@ -28,13 +28,12 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Cookies from 'universal-cookie';
-
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { setAlert } from './../../../actions/alert';
-
+import { loadCollections } from './../../../actions/setStates';
 import InputMask from 'react-input-mask';
 axios.defaults.baseURL = url;
 const useStyles = makeStyles((theme) => ({
@@ -132,6 +131,7 @@ const FullScreenDialog = (props) => {
           },
         })
         .then((response) => {
+          props.loadCollections(1, 'addChauffeurNumber');
           props.sendData(
             nom,
             prenom,
@@ -145,6 +145,8 @@ const FullScreenDialog = (props) => {
           // if (sexe == 'Homme') props.changeStates(1, 1, 0);
           // else props.changeStates(1, 0, 1);
           setOpen(false);
+
+          props.loadCollections(response.data, 'addTochauffeur');
           props.setAlert('La mise a jours a ete faite avec Success', 'success');
         })
         .catch((error) =>
@@ -396,5 +398,7 @@ const FullScreenDialog = (props) => {
 
 FullScreenDialog.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  loadCollections: PropTypes.func.isRequired,
 };
-export default connect(null, { setAlert })(FullScreenDialog);
+
+export default connect(null, { loadCollections, setAlert })(FullScreenDialog);

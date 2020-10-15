@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -19,6 +19,8 @@ import {
   CssBaseline,
   Drawer,
 } from '@material-ui/core';
+import axios from 'axios';
+import { url } from './defaults/default';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -153,6 +155,47 @@ const App = (props) => {
   const [openMenuLanguage, setopenMenuLanguage] = React.useState(false);
   const [openMenuLogin, setopenMenuLogin] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState();
+  useEffect(() => {
+    async function fetchData() {
+      await axios
+        .get(url + '/api/chauffeur')
+        .then((response) => {
+          props.loadCollections(response.data, 'setAllChauffeur');
+        })
+        .catch((error) => console.log(error.response));
+      await axios
+        .get(url + '/api/couleur')
+        .then((respons) => {
+          props.loadCollections(respons.data, 'setAllCouleur');
+        })
+        .catch((error) => console.log(error.respons));
+      await axios
+        .get(url + '/api/categorie')
+        .then((respon) => {
+          props.loadCollections(respon.data, 'setAllCategorie');
+        })
+        .catch((error) => console.log(error.respon));
+      await axios
+        .get(url + '/api/carburant')
+        .then((res) => {
+          props.loadCollections(res.data, 'setAllCarburant');
+        })
+        .catch((error) => console.log(error.res));
+      await axios
+        .get(url + '/api/marque')
+        .then((respo) => {
+          props.loadCollections(respo.data, 'setAllMarque');
+        })
+        .catch((error) => console.log(error.response));
+      await axios
+        .get(url + '/api/statistics')
+        .then((respo) => {
+          props.loadCount(respo.data, 'setCount');
+        })
+        .catch((error) => console.log(error.response));
+    }
+    fetchData();
+  }, []);
   function handleListItemClick(event, thisTab, index) {
     setSelectedIndex(index);
     setCurrentTab(thisTab);
@@ -412,9 +455,15 @@ const App = (props) => {
 
 const mapDispatchProps = (dispatch) => {
   return {
-    updateItems: (items) => {
+    loadCollections: (items, type) => {
       dispatch({
-        type: 'setDashboardItems',
+        type: type,
+        items: items,
+      });
+    },
+    loadCount: (items, type) => {
+      dispatch({
+        type: type,
         items: items,
       });
     },
@@ -422,7 +471,7 @@ const mapDispatchProps = (dispatch) => {
 };
 const mapStateProps = (state) => {
   return {
-    dashboardItems: state.dashboardItems,
+    // dashboardItems: state.dashboardItems,
   };
 };
 export default connect(mapStateProps, mapDispatchProps)(App);

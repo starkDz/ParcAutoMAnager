@@ -42,6 +42,7 @@ import iRegistration from '@iconify/icons-medical-icon/i-registration';
 import { connect } from 'react-redux';
 import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import { setAlert } from './../../actions/alert';
+import { loadCollections } from './../../actions/setStates';
 import VerticalLinearStepper from './Update/FormContent';
 import FullScreenDialog from './Add/FullScreenForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -256,6 +257,7 @@ class Call_Api extends Component {
         },
       });
       this.props.setAlert('Suppression a ete fait avec Success ', 'success');
+      this.props.loadCollections(-1, 'addChauffeurNumber');
       const { items } = this.state;
       items.splice(index, 1);
       this.setState({ items });
@@ -442,5 +444,7 @@ class Call_Api extends Component {
 }
 Call_Api.propTypes = {
   setAlert: PropTypes.func.isRequired,
+
+  loadCollections: PropTypes.func.isRequired,
 };
-export default connect(null, { setAlert })(Call_Api);
+export default connect(null, { loadCollections, setAlert })(Call_Api);

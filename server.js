@@ -12,6 +12,11 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/chauffeur', require('./routes/api/chauffeur'));
 app.use('/api/vehicule', require('./routes/api/vehicule'));
+app.use('/api/couleur', require('./routes/api/couleur'));
+app.use('/api/categorie', require('./routes/api/categorie'));
+app.use('/api/carburant', require('./routes/api/carburant'));
+app.use('/api/marque', require('./routes/api/marque'));
+app.use('/api/statistics', require('./routes/api/statistics'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
