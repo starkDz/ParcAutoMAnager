@@ -89,6 +89,7 @@ const FullScreenDialog = (props) => {
     categorie: false,
     marque: false,
     carburant: false,
+    model: false,
   });
   const handleCloseAdd = (e) => {
     setState({ ...state, open: false, right: false });
@@ -225,6 +226,37 @@ const FullScreenDialog = (props) => {
         <Grid container justify='center'>
           <PostAddIcon style={{ width: 110, height: 110 }} color='primary' />
         </Grid>
+        {anchor == 'model' ? (
+          <Grid item xs={12} sm={12} lg={12}>
+            <FormControl
+              variant='outlined'
+              margin='normal'
+              className={classes.formControl}
+              style={{ minWidth: '100%' }}
+            >
+              <InputLabel id='demo-simple-select-outlined-label'>
+                Marque
+              </InputLabel>
+              <Select
+                label='Marque'
+                name='marque'
+                value={marque}
+                onChange={(e) => onChange(e)}
+              >
+                {props.Marque &&
+                  props.Marque.map((option) => (
+                    <MenuItem
+                      key={option.description_Fr}
+                      value={option.description_Fr}
+                    >
+                      {option.description_Fr}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        ) : null}
+
         <Grid item xs={12} sm={12} lg={12}>
           <TextField
             label='Nouveau Element'
@@ -272,27 +304,20 @@ const FullScreenDialog = (props) => {
   return (
     <div>
       <div>
-        {['carburant', 'categorie', 'marque', 'couleur'].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Drawer
-              anchor='right'
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-            >
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
-        ))}
+        {['carburant', 'categorie', 'marque', 'couleur', 'model'].map(
+          (anchor) => (
+            <React.Fragment key={anchor}>
+              <Drawer
+                anchor='right'
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          )
+        )}
       </div>
-      <React.Fragment key='model'>
-        <Drawer
-          anchor='right'
-          open={state['model']}
-          onClose={toggleDrawer('model', false)}
-        >
-          {list(model)}
-        </Drawer>
-      </React.Fragment>
       <Fab
         onClick={handleClickOpen}
         variant='extended'
