@@ -33,7 +33,28 @@ router.post(
     }
   }
 );
+router.put('/newmodel/:id', async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
+  const { description_Fr } = req.body;
+
+  //Build type objects
+  const Fields = {};
+  if (description_Fr) Fields.description_Fr = description_Fr;
+
+  try {
+    const element = await Marque.findOne({ _id: req.params.id });
+    element.models.unshift(Fields);
+    await element.save();
+    res.json(element);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 // Get all profiles Public
 
 router.get('/', async (req, res) => {
