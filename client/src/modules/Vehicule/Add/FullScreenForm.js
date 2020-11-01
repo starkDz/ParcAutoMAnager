@@ -89,6 +89,7 @@ const FullScreenDialog = (props) => {
     categorie: false,
     marque: false,
     carburant: false,
+    model: false,
   });
   const handleCloseAdd = (e) => {
     setState({ ...state, open: false, right: false });
@@ -225,6 +226,37 @@ const FullScreenDialog = (props) => {
         <Grid container justify='center'>
           <PostAddIcon style={{ width: 110, height: 110 }} color='primary' />
         </Grid>
+        {anchor == 'model' ? (
+          <Grid item xs={12} sm={12} lg={12}>
+            <FormControl
+              variant='outlined'
+              margin='normal'
+              className={classes.formControl}
+              style={{ minWidth: '100%' }}
+            >
+              <InputLabel id='demo-simple-select-outlined-label'>
+                Marque
+              </InputLabel>
+              <Select
+                label='Marque'
+                name='marque'
+                value={marque}
+                onChange={(e) => onChange(e)}
+              >
+                {props.Marque &&
+                  props.Marque.map((option) => (
+                    <MenuItem
+                      key={option.description_Fr}
+                      value={option.description_Fr}
+                    >
+                      {option.description_Fr}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        ) : null}
+
         <Grid item xs={12} sm={12} lg={12}>
           <TextField
             label='Nouveau Element'
@@ -272,17 +304,19 @@ const FullScreenDialog = (props) => {
   return (
     <div>
       <div>
-        {['carburant', 'categorie', 'marque', 'couleur'].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Drawer
-              anchor='right'
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-            >
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
-        ))}
+        {['carburant', 'categorie', 'marque', 'couleur', 'model'].map(
+          (anchor) => (
+            <React.Fragment key={anchor}>
+              <Drawer
+                anchor='right'
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          )
+        )}
       </div>
       <Fab
         onClick={handleClickOpen}
@@ -407,13 +441,19 @@ const FullScreenDialog = (props) => {
                     value={model}
                     onChange={(e) => onChange(e)}
                   >
-                    <MenuItem value='206'>206</MenuItem>
-                    <MenuItem value='207'>207</MenuItem>
-                    <MenuItem value='c220'>c220</MenuItem>
-                    <MenuItem value='IBIZA'>IBIZA</MenuItem>
-                    <MenuItem value='LEAON'>LEAON</MenuItem>
-                    <MenuItem value='CLIO4'>CLIO4</MenuItem>
-                    <MenuItem value='FLUENCE'>FLUENCE</MenuItem>
+                    {marque &&
+                      props.Marque.map((option) =>
+                        option.description_Fr != marque
+                          ? null
+                          : option.models.map((model) => (
+                              <MenuItem
+                                key={model.description_Fr}
+                                value={model.description_Fr}
+                              >
+                                {model.description_Fr}
+                              </MenuItem>
+                            ))
+                      )}
                   </Select>
                 </FormControl>
               </Grid>
@@ -421,7 +461,7 @@ const FullScreenDialog = (props) => {
                 <IconButton
                   edge='start'
                   margin='normal'
-                  onClick={addModel}
+                  onClick={toggleDrawer('model', true)}
                   color='secondary'
                 >
                   <ControlPointIcon />

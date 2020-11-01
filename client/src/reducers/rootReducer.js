@@ -4,6 +4,7 @@ const initialState = {
   Couleur: [],
   Carburant: [],
   Chauffeur: [],
+  Models: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -20,6 +21,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         Marque: newMarque,
+      };
+    case 'setAllModel':
+      return {
+        ...state,
+        Models: action.items,
+      };
+
+    case 'addTomodel':
+      let newModel = state.Models.concat(action.items);
+      return {
+        ...state,
+        Models: newModel,
       };
     case 'setAllCategorie':
       return {
