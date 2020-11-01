@@ -284,6 +284,15 @@ const FullScreenDialog = (props) => {
           </React.Fragment>
         ))}
       </div>
+      <React.Fragment key='model'>
+        <Drawer
+          anchor='right'
+          open={state['model']}
+          onClose={toggleDrawer('model', false)}
+        >
+          {list(model)}
+        </Drawer>
+      </React.Fragment>
       <Fab
         onClick={handleClickOpen}
         variant='extended'
@@ -407,13 +416,19 @@ const FullScreenDialog = (props) => {
                     value={model}
                     onChange={(e) => onChange(e)}
                   >
-                    <MenuItem value='206'>206</MenuItem>
-                    <MenuItem value='207'>207</MenuItem>
-                    <MenuItem value='c220'>c220</MenuItem>
-                    <MenuItem value='IBIZA'>IBIZA</MenuItem>
-                    <MenuItem value='LEAON'>LEAON</MenuItem>
-                    <MenuItem value='CLIO4'>CLIO4</MenuItem>
-                    <MenuItem value='FLUENCE'>FLUENCE</MenuItem>
+                    {marque &&
+                      props.Marque.map((option) =>
+                        option.description_Fr != marque
+                          ? null
+                          : option.models.map((model) => (
+                              <MenuItem
+                                key={model.description_Fr}
+                                value={model.description_Fr}
+                              >
+                                {model.description_Fr}
+                              </MenuItem>
+                            ))
+                      )}
                   </Select>
                 </FormControl>
               </Grid>
@@ -421,7 +436,7 @@ const FullScreenDialog = (props) => {
                 <IconButton
                   edge='start'
                   margin='normal'
-                  onClick={addModel}
+                  onClick={toggleDrawer('model', true)}
                   color='secondary'
                 >
                   <ControlPointIcon />
