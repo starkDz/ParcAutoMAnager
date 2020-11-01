@@ -444,7 +444,6 @@ class Call_Api extends Component {
 }
 Call_Api.propTypes = {
   setAlert: PropTypes.func.isRequired,
-
   loadCollections: PropTypes.func.isRequired,
 };
 export default connect(null, { loadCollections, setAlert })(Call_Api);
