@@ -241,12 +241,43 @@ const VerticalLinearStepper = (props) => {
         <Grid container justify='center'>
           <PostAddIcon style={{ width: 110, height: 110 }} color='primary' />
         </Grid>
+        {anchor == 'model' ? (
+          <Grid item xs={12} sm={12} lg={12}>
+            <FormControl
+              variant='outlined'
+              margin='normal'
+              className={classes.formControl}
+              style={{ minWidth: '100%' }}
+            >
+              <InputLabel id='demo-simple-select-outlined-label'>
+                Marque
+              </InputLabel>
+              <Select
+                label='Marque'
+                name='marque'
+                value={marque}
+                onChange={(e) => onChange(e)}
+              >
+                {props.Marque &&
+                  props.Marque.map((option) => (
+                    <MenuItem
+                      key={option.description_Fr}
+                      value={option.description_Fr}
+                    >
+                      {option.description_Fr}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        ) : null}
         <Grid item xs={12} sm={12} lg={12}>
           <TextField
             label='Nouveau Element'
             placeholder='Nouveau Element'
             helperText=''
             fullWidth
+            variant='outlined'
             margin='normal'
             name='description_Fr'
             value={description_Fr}
@@ -418,7 +449,7 @@ const VerticalLinearStepper = (props) => {
           <IconButton
             edge='start'
             margin='normal'
-            onClick={addModel}
+            onClick={toggleDrawer('model', true)}
             color='secondary'
           >
             <ControlPointIcon />
