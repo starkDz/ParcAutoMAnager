@@ -443,10 +443,15 @@ const App = (props) => {
         <main className={classes.content}>
           <Alert />
           <div className={classes.toolbar} />
-
-          {modules.map((module) => (
-            <Route {...module.routeProps} key={module.name} />
-          ))}
+          {!currentTab ? (
+            <div className='row' align='center'>
+              <img src={require('./image/home.png')} alt='text' width='50%' />
+            </div>
+          ) : (
+            modules.map((module) => (
+              <Route {...module.routeProps} key={module.name} />
+            ))
+          )}
         </main>
       </div>
     </Router>
