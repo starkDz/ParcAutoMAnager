@@ -63,7 +63,7 @@ const VerticalLinearStepper = (props) => {
       await axios
         .get(url + '/api/chauffeur/ById/' + props.identifier)
         .then((response) => {
-          // console.log(response);
+          console.log(response);
           setFormData({
             ...formData,
             nom: response.data.nom,
@@ -74,9 +74,9 @@ const VerticalLinearStepper = (props) => {
             groupage: response.data.groupage,
             telephone: response.data.telephone,
             telephone: response.data.telephone,
-            embauche: response.data.embauche,
+            embauche: response.data.embauche.substr(0, 10),
             permis: response.data.permis,
-            dateNaissance: response.data.dateNaissance,
+            dateNaissance: response.data.dateNaissance.substr(0, 10),
           });
         })
         .catch((error) => console.log(error.response));
@@ -212,6 +212,7 @@ const VerticalLinearStepper = (props) => {
             fullWidth
             type='date'
             name='dateNaissance'
+            // value='2017-05-24'
             value={dateNaissance}
             onChange={(e) => onChange(e)}
             variant='outlined'

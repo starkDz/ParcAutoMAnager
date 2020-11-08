@@ -137,7 +137,7 @@ const VerticalLinearStepper = (props) => {
             marque: response.data.marque,
             model: response.data.model,
             matricule: response.data.matricule,
-            dateMiseEnService: response.data.dateMiseEnService,
+            dateMiseEnService: response.data.dateMiseEnService.substr(0, 10),
             kilometrage: response.data.kilometrage,
             categorie: response.data.categorie,
             couleur: response.data.couleur,
