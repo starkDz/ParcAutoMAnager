@@ -33,18 +33,18 @@ const VehiculeSchema = new mongoose.Schema({
     type: String,
   },
   actif: {
-    type: Boolean,
+    type: Boolean, // Est Ce n'est pas en Panne
     default: true,
   },
   kilometrage: {
-    type: String,
+    type: Number,
   },
   carburant: {
     type: String,
   },
   controlTechnique: [
     {
-      dateControle: {
+      dateControl: {
         type: Date,
         required: true,
       },
@@ -61,7 +61,7 @@ const VehiculeSchema = new mongoose.Schema({
         required: true,
       },
       typePanne: {
-        type: Number,
+        type: String,
         required: true,
       },
       driver: {
@@ -95,15 +95,15 @@ const VehiculeSchema = new mongoose.Schema({
         required: true,
       },
       typeAssurance: {
-        type: Date,
+        type: String,
         required: true,
       },
       companyAssurance: {
-        type: Date,
+        type: String,
         required: true,
       },
       duree: {
-        type: Number,
+        type: String,
         required: true,
       },
       prix: {
