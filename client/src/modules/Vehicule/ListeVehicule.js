@@ -44,6 +44,7 @@ import FolderSharedIcon from '@material-ui/icons/FolderShared';
 import { setAlert } from './../../actions/alert';
 import { loadCollections } from './../../actions/setStates';
 import VerticalLinearStepper from './Update/FormContent';
+import DetailsDialog from './Details/FormContent';
 import FullScreenDialog from './Add/FullScreenForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -129,7 +130,7 @@ class Call_Api extends Component {
       selectedRow: null,
       open: false,
       rowIndex: 0,
-      openDossier: false,
+      openDetails: false,
       openUpdate: false,
       opensnack: false,
       Title: 'Liste des Vehicules',
@@ -141,8 +142,8 @@ class Call_Api extends Component {
     this.getUpdatedData = this.getUpdatedData.bind(this);
     this.getNewData = this.getNewData.bind(this);
 
-    this.handleClickOpenDossier = this.handleClickOpenDossier.bind(this);
-    this.handleCloseDossier = this.handleCloseDossier.bind(this);
+    this.handleClickOpenDetails = this.handleClickOpenDetails.bind(this);
+    this.handleCloseDetails = this.handleCloseDetails.bind(this);
     this.handleCloseUpdate = this.handleCloseUpdate.bind(this);
     this.handleClickOpenUpdate = this.handleClickOpenUpdate.bind(this);
     this.updateItem = this.updateItem.bind(this);
@@ -224,15 +225,15 @@ class Call_Api extends Component {
     });
   };
 
-  handleClickOpenDossier() {
+  handleClickOpenDetails() {
     this.setState({
-      openDossier: true,
+      openDetails: true,
     });
   }
 
-  handleCloseDossier() {
+  handleCloseDetails() {
     this.setState({
-      openDossier: false,
+      openDetails: false,
     });
   }
   handleClickOpenUpdate() {
@@ -295,6 +296,7 @@ class Call_Api extends Component {
       rowIndex,
       number,
       openUpdate,
+      openDetails,
       id,
     } = this.state;
     if (error) {
@@ -378,8 +380,11 @@ class Call_Api extends Component {
                 ),
                 tooltip: 'Afficher les Details',
                 onClick: (event, rowData) => {
-                  this.setState({ id: rowData._id });
-                  this.handleClickOpenDossier();
+                  this.setState({
+                    id: rowData._id,
+                    rowIndex: rowData.tableData.id,
+                  });
+                  this.handleClickOpenDetails();
                 },
               },
             ]}
@@ -400,6 +405,44 @@ class Call_Api extends Component {
           />
 
           <FullScreenDialog sendData={this.getNewData} />
+
+          <Dialog
+            fullScreen
+            open={openDetails}
+            onClose={this.handleCloseDetails}
+            TransitionComponent={Transition}
+          >
+            <AppBar
+              style={{
+                position: 'relative',
+              }}
+            >
+              <Toolbar>
+                <IconButton
+                  edge='start'
+                  color='inherit'
+                  onClick={this.handleCloseDetails}
+                  aria-label='close'
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Typography
+                  variant='h6'
+                  style={{
+                    flex: 1,
+                  }}
+                >
+                  Vehicule Details
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <DetailsDialog
+              sendData={this.getUpdatedData}
+              identifier={id}
+              index={rowIndex}
+            />
+          </Dialog>
+
           <Dialog
             fullScreen
             open={openUpdate}
