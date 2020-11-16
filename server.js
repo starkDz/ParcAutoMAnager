@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const path = require('path');
 const app = express();
 const cors = require('cors');
+
 connectDB();
 app.use(cors());
 app.use(express.json({ extended: false }));
@@ -24,6 +25,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log('Serve started on port ' + PORT));
