@@ -1,8 +1,8 @@
 const initialState = {
-  chauffeurNumber: 0,
+  chauffeurNumber: 0, //used Chauffeurs
   chauffeurFreeNumber: 0,
   chauffeurMissionNumber: 0,
-  vehiculeNumber: 0,
+  vehiculeNumber: 0, //used at vehicule
   vehiculeFreeNumber: 0,
   vehiculePanneNumber: 0,
   missionNumber: 0,

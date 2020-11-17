@@ -138,25 +138,45 @@ const FullScreenDialog = (props) => {
     const element = { description_Fr };
     try {
       const cookies = new Cookies();
+      const newVal = 'marque/newmodel/' + marque;
       const body = JSON.stringify(element);
-      const res = await axios
-        .post('/api/' + val, body, {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*',
-            // 'x-auth-token': cookies.get('token'),
-          },
-        })
-        .then((res) => {
-          // if (sexe == 'Homme') props.changeStates(1, 1, 0);
-          // else props.changeStates(1, 0, 1);
-          props.loadCollections(res.data, 'addTo' + val);
-          props.setAlert('L ajout a ete fait avec Success', 'success');
-          setFormData({ ...formData, description_Fr: '' });
-        })
-        .catch((error) =>
-          props.setAlert("L ajout n'a pas eu lieu ..", 'error')
-        );
+      val === 'model'
+        ? await axios
+            .put('/api/' + newVal, body, {
+              headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Access-Control-Allow-Origin': '*',
+                // 'x-auth-token': cookies.get('token'),
+              },
+            })
+            .then((res) => {
+              // if (sexe == 'Homme') props.changeStates(1, 1, 0);
+              // else props.changeStates(1, 0, 1);
+              props.loadCollections(res.data, 'addTo' + val);
+              props.setAlert('L ajout a ete fait avec Success', 'success');
+              setFormData({ ...formData, description_Fr: '' });
+            })
+            .catch((error) =>
+              props.setAlert("L ajout n'a pas eu lieu ..", 'error')
+            )
+        : await axios
+            .post('/api/' + val, body, {
+              headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Access-Control-Allow-Origin': '*',
+                // 'x-auth-token': cookies.get('token'),
+              },
+            })
+            .then((res) => {
+              // if (sexe == 'Homme') props.changeStates(1, 1, 0);
+              // else props.changeStates(1, 0, 1);
+              props.loadCollections(res.data, 'addTo' + val);
+              props.setAlert('L ajout a ete fait avec Success', 'success');
+              setFormData({ ...formData, description_Fr: '' });
+            })
+            .catch((error) =>
+              props.setAlert("L ajout n'a pas eu lieu ..", 'error')
+            );
     } catch (err) {
       props.setAlert("L ajout n'a pas eu lieu ...", 'error');
     }
@@ -245,10 +265,7 @@ const FullScreenDialog = (props) => {
               >
                 {props.Marque &&
                   props.Marque.map((option) => (
-                    <MenuItem
-                      key={option.description_Fr}
-                      value={option.description_Fr}
-                    >
+                    <MenuItem key={option._id} value={option._id}>
                       {option.description_Fr}
                     </MenuItem>
                   ))}
